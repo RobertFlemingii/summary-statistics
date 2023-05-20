@@ -8,7 +8,7 @@ def find_mean(list):
     sum = 0
     for i in list:
         sum += i
-    return sum / len(list)
+    return '{:.2f}'.format(sum / len(list))
 
 
 def find_median(list):
@@ -16,9 +16,23 @@ def find_median(list):
     index = len(list) // 2
     sorted_list = sorted(list)
     if len(list) % 2 == 1:
-        return float(sorted_list[index])
+        return '{:.2f}'.format(float(sorted_list[index]))
     else:
-        return float(find_mean(sorted_list[index-1]+sorted_list[index]))
+        return '{:.2f}'.format(float(find_mean([sorted_list[index-1], sorted_list[index]])))
+
+
+def find_bucketed_mode(array):
+    # take an array and return the most frequently occuring multiple of 10
+    frequency = {}
+    for i in array:
+        if i // 10 * 10 in frequency:
+            frequency[i // 10 * 10] += 1
+        else:
+            frequency[i // 10 * 10] = 1
+
+    max_frequency = find_max(list(frequency.values()))
+    mode = [key for key, value in frequency.items() if value == max_frequency]
+    return int(mode[0])
 
 
 def find_min(list):
@@ -45,10 +59,11 @@ def main():
         "Enter an array of integers separated by commas and/or spaces: ")
     user_input = user_input.replace(", ", " ")
     int_array = [int(num) for num in user_input.split()]
-    print(find_mean(int_array))
-    print(find_median(int_array))
-    print(find_min(int_array))
-    print(find_max(int_array))
+    print("Mean\t", find_mean(int_array))
+    print("Median\t", find_median(int_array))
+    print("Mode\t", find_bucketed_mode(int_array))
+    print("Minimum\t", find_min(int_array))
+    print("Maximum\t", find_max(int_array))
 
     # my_function()  # Call the function
 
