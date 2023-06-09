@@ -1,5 +1,4 @@
 def my_function():
-    # Code for your function goes here
     print("Hello, world!")
 
 
@@ -20,6 +19,19 @@ def find_median(list):
     else:
         return '{:.2f}'.format(float(find_mean([sorted_list[index-1], sorted_list[index]])))
 
+
+def find_mode(array):
+    # take an array and return the most frequently occuring element
+    frequency = {}
+    for i in array:
+        if i in frequency:
+            frequency[i] += 1
+        else:
+            frequency[i] = 1
+
+    max_frequency = find_max(list(frequency.values()))
+    mode = [key for key, value in frequency.items() if value == max_frequency]
+    return int(mode[0])
 
 def find_bucketed_mode(array):
     # take an array and return the most frequently occuring multiple of 10
@@ -61,7 +73,7 @@ def main():
     int_array = [int(num) for num in user_input.split()]
     print("Mean\t", find_mean(int_array))
     print("Median\t", find_median(int_array))
-    print("Mode\t", find_bucketed_mode(int_array))
+    print("Mode\t", find_mode(int_array))
     print("Minimum\t", find_min(int_array))
     print("Maximum\t", find_max(int_array))
 
